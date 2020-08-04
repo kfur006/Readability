@@ -13,7 +13,53 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(tm)
+library(pdftools)
+library(here)
+library(quanteda)
 ```
 
 
 # PDF Load
+pdf_text
+```{r}
+pdf_text(paste0(here(), "/Data/Wshoes hl.pdf"))
+
+pdftools::pdf_text(paste0(here(), "/Data/Wshoes hl.pdf"))
+
+Corpus(paste0(here(), "/Data/Wshoes hl.pdf"),
+       readerControl = list(reader = readPDF))
+
+uri <- paste0(here(), "/Data/Hushed-SJL4 May 2017.pdf")
+uri <- paste0("file://",
+              system.file(file.path("doc", "tm.pdf"), package = "tm"))
+
+uri <- paste0(here(), "/Data/Wshoes hl.pdf")
+engine <- if(nzchar(system.file(package = "pdftools"))) {
+    "pdftools" 
+} else {
+    "ghostscript"
+}
+reader <- readPDF(engine)
+pdf <- reader(elem = list(uri = uri), language = "en", id = "id1")
+cat(content(pdf)[1])
+VCorpus(URISource(uri, mode = ""),
+        readerControl = list(reader = readPDF(engine = "ghostscript")))
+
+
+pdf_text(uri)
+
+Corpus(uri,
+       readerControl = list(reader = readPDF))
+
+
+
+textstat_readability(quanteda::corpus(uri),
+                     measure = "Flesch")
+textstat_readability(quanteda::corpus(paste0(here(), "/Data/Wshoes hl.pdf")),
+                     measure = "Flesch")
+
+
+quanteda::corpus(uri)
+
+```
