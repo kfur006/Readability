@@ -22,6 +22,22 @@ library(quanteda)
 
 # PDF Load
 pdf_text
+Using the link to google drive is not going to be a good solution to access the file.
+It is due to the fact that the google drive link is not the link to the PDF itself but accessing the file through google drive.
+In order to access the file, it is necessary to donwload the file locally either as a temp file or permanent file.
+When the download file through R, it will be saved as a zip file.
+
+Once the file is saved as pdf file, R can create corpus file directly using quanteda::corpus function.
+
+
+Reference
+https://stackoverflow.com/questions/47851761/r-how-to-read-a-file-from-google-drive-using-r
+
+For those web page readings, we can either extract from the source code (it will be possible but require a bit of coding to deal with each page and might not be ideal if there are multiple sources), or copy the main article into text file.
+The latter option can deal with the case when the web page is removed.
+
+
+
 ```{r}
 pdf_text(paste0(here(), "/Data/Wshoes hl.pdf"))
 
